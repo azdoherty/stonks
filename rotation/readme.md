@@ -1,0 +1,1 @@
+rrg_link = "https://www.reddit.com/r/thetagang/comments/m5hyxn/anticipating_the_rotation_march_15_2021/"
