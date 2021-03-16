@@ -27,7 +27,7 @@ class RotationChart:
         all_tickers = self.tickers + [self.benchmark]
         normed = self.data.loc[:, ('Adj Close', all_tickers)] / self.data.loc[start, ('Adj Close', all_tickers)]
         normed.columns = normed.columns.set_levels([self.NORMALIZED_CLOSE], level=0)
-        self.data.join(normed)
+        self.data = self.data.join(normed)
 
     def calculate_rs(self):
         """
@@ -37,4 +37,4 @@ class RotationChart:
         rs = 100 * (self.data.loc[:, (self.NORMALIZED_CLOSE, self.tickers)] /
                     self.data.loc[:, (self.NORMALIZED_CLOSE, self.benchmark)])
         rs.columns = rs.columns.set_levels(['RS-Ratio'], level=0)
-        self.data.join(rs)
+        self.data = self.data.join(rs)
