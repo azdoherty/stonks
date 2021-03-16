@@ -2,6 +2,8 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import pandas as pd
+import plotly.graph_objs as go
+from datetime import datetime, timedelta
 from rotation import RotationChart
 
 app = dash.Dash(__name__)
@@ -14,6 +16,7 @@ app = dash.Dash(__name__)
 df = pd.DataFrame(
     [
         {
+            'date': datetime(2021, 1, 1) + timedelta(days=i),
             'a': i,
             'b': i**2
         }
@@ -21,6 +24,7 @@ df = pd.DataFrame(
     ]
 )
 
+df.set_index('date', inplace=True)
 
 app.layout = html.Div(
     children=[
@@ -32,10 +36,11 @@ app.layout = html.Div(
             figure={
                 'data':
                     [
-                        {
-                            'x': df.index,
-                            'y': df['a']
-                        }
+                        go.Scatter(
+                            x=df.index,
+                            y=df[i],
+                            mode="markers+lines",
+                        ) for i in ['a', 'b']
                     ]
             }
         )
