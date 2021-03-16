@@ -8,7 +8,6 @@ from rotation import RotationChart
 
 app = dash.Dash(__name__)
 
-#
 # rchart = RotationChart()
 # rchart.download_starting_data()
 # rchart.normalize()
