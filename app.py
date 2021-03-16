@@ -6,24 +6,14 @@ import plotly.graph_objs as go
 from datetime import datetime, timedelta
 from rotation import RotationChart
 
+
 app = dash.Dash(__name__)
 
-# rchart = RotationChart()
-# rchart.download_starting_data()
-# rchart.normalize()
 
-df = pd.DataFrame(
-    [
-        {
-            'date': datetime(2021, 1, 1) + timedelta(days=i),
-            'a': i,
-            'b': i**2
-        }
-        for i in range(20)
-    ]
-)
+rchart = RotationChart()
+rchart.download_starting_data()
+rchart.process()
 
-df.set_index('date', inplace=True)
 
 app.layout = html.Div(
     children=[
@@ -36,10 +26,10 @@ app.layout = html.Div(
                 'data':
                     [
                         go.Scatter(
-                            x=df.index,
-                            y=df[i],
+                            x=rchart.data.index,
+                            y=rchart.data.loc[:, ('RS-Ratio', 'IWM')],
                             mode="markers+lines",
-                        ) for i in ['a', 'b']
+                        )
                     ]
             }
         )
