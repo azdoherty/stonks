@@ -34,7 +34,7 @@ class RotationChart:
         calculate the relative strength to the benchmark
         :return:
         """
-        for ticker in self.tickers:
+        for ticker in self.tickers + [self.benchmark]:
             rs = 100 * (self.data.loc[:, (self.NORMALIZED_CLOSE, ticker)] /
                         self.data.loc[:, (self.NORMALIZED_CLOSE, self.benchmark)])
             self.data['RS-Ratio', ticker] = rs

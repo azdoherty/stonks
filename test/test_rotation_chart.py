@@ -12,8 +12,8 @@ class RotationCharTest(TestCase):
         data = pd.DataFrame(
             [
                 {
-                    'SPY': random.random() * 100,
-                    'IWM': random.random() * 200
+                    'SPY': (i + 1) * 100,
+                    'IWM': (i + 1)**2 * 200
                 } for i in range(test_size)
             ]
         )

@@ -27,9 +27,9 @@ app.layout = html.Div(
                     [
                         go.Scatter(
                             x=rchart.data.index,
-                            y=rchart.data.loc[:, ('RS-Ratio', 'IWM')],
+                            y=rchart.data.loc[:, c],
                             mode="markers+lines",
-                        )
+                        ) for c in [('RS-Ratio', 'IWM'), ('RS-Ratio', 'SPY')]
                     ]
             }
         )
