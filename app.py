@@ -10,7 +10,11 @@ from rotation import RotationChart
 app = dash.Dash(__name__)
 
 
-rchart = RotationChart()
+rchart = RotationChart(
+    start_date='2021-01-12',
+    end_date='2021-03-12',
+    tickers=['QQQ', 'XLE']
+)
 rchart.download_starting_data()
 rchart.process()
 
@@ -29,8 +33,24 @@ app.layout = html.Div(
                             x=rchart.data.index,
                             y=rchart.data.loc[:, c],
                             mode="markers+lines",
-                        ) for c in [('RS-Ratio', 'IWM'), ('RS-Ratio', 'SPY')]
-                    ]
+                            name=c[1]
+                        ) for c in [('RS-Ratio', 'XLE'), ('RS-Ratio', 'QQQ')]
+                    ],
+
+            }
+        ),
+        dcc.Graph(
+            figure={
+                'data':
+                    [
+                        go.Scatter(
+                            x=rchart.data.loc[:, ('JDK RS-ratio', c[1])],
+                            y=rchart.data.loc[:, ('JDK RS-Momentum', c[1])],
+                            mode="markers+lines",
+                            name=c[1]
+                        ) for c in [('RS-Ratio', 'XLE'), ('RS-Ratio', 'QQQ')]
+                    ],
+
             }
         )
     ]

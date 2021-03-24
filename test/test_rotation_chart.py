@@ -1,7 +1,6 @@
 from unittest import TestCase
 import pandas as pd
 from datetime import datetime, timedelta
-import random
 from rotation import RotationChart
 
 
@@ -30,7 +29,19 @@ class RotationCharTest(TestCase):
             r.data.loc[date_list[0], ('Adj Close Normed', 'SPY')], 1
         )
         self.assertEqual(
+            r.data.loc[date_list[1], ('Adj Close Normed', 'SPY')], 2
+        )
+        self.assertEqual(
+            r.data.loc[date_list[-1], ('Adj Close Normed', 'SPY')], 500
+        )
+        self.assertEqual(
             r.data.loc[date_list[0], ('Adj Close Normed', 'IWM')], 1
+        )
+        self.assertEqual(
+            r.data.loc[date_list[1], ('Adj Close Normed', 'IWM')], 4
+        )
+        self.assertEqual(
+            r.data.loc[date_list[-1], ('Adj Close Normed', 'IWM')], 250000
         )
         r.calculate_rs()
         self.assertEqual(
