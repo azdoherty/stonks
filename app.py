@@ -9,15 +9,27 @@ from rotation import RotationChart
 
 app = dash.Dash(__name__)
 
+tickers = [
+    'QQQ',
+    'XLE',
+    'XBI',
+    'XLV',
+    'XLU',
+    'IWM',
+    'XLF',
+    'DIA',
+    'IYR',
+    'YLB'
+]
 
 rchart = RotationChart(
     start_date='2020-11-12',
-    end_date='2021-03-12',
-    tickers=['QQQ', 'XLE']
+    end_date='2021-03-29',
+    tickers=tickers
 )
+
 rchart.download_starting_data()
 rchart.process()
-
 
 
 chart_background = [
@@ -27,6 +39,7 @@ chart_background = [
         fill='toself',
         fillcolor='rgba(255, 235, 235, 255)',
         line=dict(color='rgba(255, 235, 235, 255)'),
+        showlegend=False
     ),
     go.Scatter(
         x=[97, 100, 100, 97, 97],
@@ -34,6 +47,7 @@ chart_background = [
         fill='toself',
         fillcolor='rgba(235,235,255,255)',
         line=dict(color='rgba(235,235,255,255)'),
+        showlegend=False
     ),
     go.Scatter(
         x=[100, 103, 103, 100, 100],
@@ -41,6 +55,7 @@ chart_background = [
         fill='toself',
         fillcolor='rgba(255,255,235,255)',
         line=dict(color='rgba(255,255,235,255)'),
+        showlegend=False
     ),
     go.Scatter(
         x=[100, 103, 103, 100, 100],
@@ -48,8 +63,10 @@ chart_background = [
         fill='toself',
         fillcolor='rgba(235,245,235,255)',
         line=dict(color='rgba(235,245,235,255)'),
+        showlegend=False
     )
 ]
+
 
 app.layout = html.Div(
     children=[
@@ -66,7 +83,7 @@ app.layout = html.Div(
                             y=rchart.data.loc[:, c],
                             mode="markers+lines",
                             name=c[1]
-                        ) for c in [('RS-Ratio', 'XLE'), ('RS-Ratio', 'QQQ')]
+                        ) for c in [('RS-Ratio', t) for t in tickers]
                     ],
 
             }
@@ -81,7 +98,7 @@ app.layout = html.Div(
                             hovertext=rchart.data.index,
                             mode="markers+lines",
                             name=c[1],
-                        ) for c in [('RS-Ratio', 'XLE'), ('RS-Ratio', 'QQQ')]
+                        ) for c in [('RS-Ratio', t) for t in tickers]
                     ],
                 'layout': dict(
                     height=800,
