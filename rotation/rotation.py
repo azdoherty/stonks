@@ -5,13 +5,14 @@ import yfinance as yf
 class RotationChart:
 
     NORMALIZED_CLOSE = 'Adj Close Normed'
-    DEFAULT_WINDOW = 50
+    DEFAULT_WINDOW = 10
+    DEFAULT_BENCHMARK = 'SPY'
 
-    def __init__(self, start_date='2020-01-01', end_date='2021-01-01', benchmark='SPY', tickers=None):
+    def __init__(self, start_date='2020-01-01', end_date='2021-01-01', benchmark=None, tickers=None):
         self.start_date = start_date
         self.end_date = end_date
         self.yf = yf
-        self.benchmark = benchmark
+        self.benchmark = benchmark if benchmark else self.DEFAULT_BENCHMARK
         self.tickers = ['IWM'] if not tickers else [t.upper() for t in tickers]
         self.data = pd.DataFrame()
 
