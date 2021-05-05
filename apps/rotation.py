@@ -5,7 +5,7 @@ from dash import callback_context
 import dash_bootstrap_components as dbc
 import plotly.graph_objs as go
 from datetime import datetime, timedelta, date
-from rotation import RotationChart
+from utils import RotationChart
 from app import app
 
 
@@ -124,24 +124,50 @@ layout = html.Div(
     children=[
         html.H1('Rotation Chart'),
         html.Div(
+            style={
+                'padding-top': '10%',
+                'padding-side': '10%',
+                'padding-right': '10%'
+            },
             children=[
-                dbc.Input(
-                    id='benchmark-ticker',
-                    value='',
-                    type='text',
-                    placeholder=RotationChart.DEFAULT_BENCHMARK,
+                html.Div(
+                    children=[
+                        dbc.Label(
+                            'Benchmark',
+                        ),
+                        dbc.Input(
+                            id='benchmark-ticker',
+                            value='',
+                            type='text',
+                            placeholder=RotationChart.DEFAULT_BENCHMARK,
+                        ),
+                    ]
                 ),
-                dbc.Input(
-                    id='ticker-list',
-                    value='',
-                    type='text',
-                    placeholder=','.join(tuple(SECTOR_TICKERS.keys())),
+                html.Div(
+                    children=[
+                        dbc.Label(
+                            'Tickers',
+                        ),
+                        dbc.Input(
+                            id='ticker-list',
+                            value='',
+                            type='text',
+                            placeholder=','.join(tuple(SECTOR_TICKERS.keys())),
+                        ),
+                    ]
                 ),
-                dcc.DatePickerRange(
-                    id='chart-date-picker-range',
-                    min_date_allowed=date(2000, 1, 1),
-                    max_date_allowed=date.today() - timedelta(days=1),
-                    initial_visible_month=date(2021, 1, 1),
+                html.Div(
+                    children=[
+                        dbc.Label(
+                            'Dates',
+                        ),
+                        dcc.DatePickerRange(
+                            id='chart-date-picker-range',
+                            min_date_allowed=date(2000, 1, 1),
+                            max_date_allowed=date.today() - timedelta(days=1),
+                            initial_visible_month=date(2021, 1, 1),
+                        ),
+                    ]
                 ),
                 dbc.Button(
                     'Run',

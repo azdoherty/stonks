@@ -5,7 +5,7 @@ import yfinance as yf
 class RotationChart:
 
     NORMALIZED_CLOSE = 'Adj Close Normed'
-    DEFAULT_WINDOW = 10
+    DEFAULT_WINDOW = 30
     DEFAULT_BENCHMARK = 'SPY'
 
     def __init__(self, start_date='2020-01-01', end_date='2021-01-01', benchmark=None, tickers=None):
