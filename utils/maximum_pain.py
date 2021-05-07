@@ -17,6 +17,8 @@ class MaxPain:
         self.ticker = yf.Ticker(ticker)
         self.chain = None
         self.max_pain = pd.DataFrame()
+        self.max_pain_strike = None
+        self.max_pain_cash = None
 
     def run(self, strike_date=None):
         self.chain = self.get_option_data(strike_date)
@@ -48,3 +50,10 @@ class MaxPain:
             calls_and_puts.loc[idx, 'cash_p'] = p_cash_total
             calls_and_puts.loc[idx, 'cash_total'] = c_cash_total + p_cash_total
         return calls_and_puts
+
+    def find_max_pain_point(self):
+        pass
+
+    
+
+    
